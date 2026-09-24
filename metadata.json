@@ -1,0 +1,10 @@
+{
+  "name": "Evidence-Based Personal & SME Finance Advisor",
+  "description": "AI-powered financial transaction analysis platform for individuals and SMEs with evidence-grounded insights, pattern detection, and financial health reports.",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

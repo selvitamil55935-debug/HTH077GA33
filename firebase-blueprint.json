@@ -1,0 +1,100 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile and financial preferences",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "email": { "type": "string" },
+        "name": { "type": "string" },
+        "mode": { "type": "string", "enum": ["personal", "sme"] },
+        "currency": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["userId", "email", "mode"]
+    },
+    "Transaction": {
+      "title": "Transaction",
+      "description": "Financial ledger transaction document",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "date": { "type": "string" },
+        "description": { "type": "string" },
+        "amount": { "type": "number" },
+        "type": { "type": "string", "enum": ["Income", "Expense"] },
+        "category": { "type": "string" },
+        "subCategory": { "type": "string" },
+        "isBusiness": { "type": "boolean" },
+        "notes": { "type": "string" }
+      },
+      "required": ["id", "userId", "date", "description", "amount", "type", "category"]
+    },
+    "Budget": {
+      "title": "Budget",
+      "description": "Category budget allowance",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "category": { "type": "string" },
+        "limit": { "type": "number" },
+        "period": { "type": "string", "enum": ["monthly", "quarterly", "annual"] },
+        "isBusiness": { "type": "boolean" }
+      },
+      "required": ["id", "userId", "category", "limit", "period"]
+    },
+    "AnalysisReport": {
+      "title": "AnalysisReport",
+      "description": "Saved AI financial health report",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "generatedAt": { "type": "string" },
+        "mode": { "type": "string", "enum": ["personal", "sme"] },
+        "healthScore": { "type": "number" },
+        "summaryJson": { "type": "string" }
+      },
+      "required": ["id", "userId", "generatedAt", "mode", "healthScore"]
+    },
+    "ChatMessage": {
+      "title": "ChatMessage",
+      "description": "AI multi-turn chat message thread history",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "role": { "type": "string", "enum": ["user", "model", "system"] },
+        "text": { "type": "string" },
+        "timestamp": { "type": "number" },
+        "modelUsed": { "type": "string" }
+      },
+      "required": ["id", "userId", "role", "text", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profile document storing mode and preferences"
+    },
+    "/users/{userId}/transactions/{transactionId}": {
+      "schema": "Transaction",
+      "description": "User ledger transactions collection"
+    },
+    "/users/{userId}/budgets/{budgetId}": {
+      "schema": "Budget",
+      "description": "Category spending limits and targets"
+    },
+    "/users/{userId}/reports/{reportId}": {
+      "schema": "AnalysisReport",
+      "description": "Evidence-backed AI reports"
+    },
+    "/users/{userId}/chats/{chatId}": {
+      "schema": "ChatMessage",
+      "description": "Stored multi-turn conversation thread messages"
+    }
+  }
+}
